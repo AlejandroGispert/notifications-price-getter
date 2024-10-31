@@ -115,8 +115,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun findPrice(text: String): Double? {
-        val regex = """\$\s*(\d+(?:\.\d{2})?)""".toRegex()
-        return regex.find(text)?.groupValues?.get(1)?.toDoubleOrNull()
+        // Regex to match prices with either , or . as decimal separator, followed by kr or DKK
+        val regex = """(\d+[\.,]\d{2})\s*(kr\.?|DKK)""".toRegex()
+        val matchResult = regex.find(text)
+
+        // Extract the matched number and convert comma to dot if needed
+        return matchResult?.groupValues?.get(1)?.replace(",", ".")?.toDoubleOrNull()
     }
 
     private fun isNotificationServiceEnabled(): Boolean {
