@@ -12,6 +12,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -82,7 +84,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.padding(16.dp)
                                 ) {
                                     Text(
-                                        text = "$${String.format("%.2f", entry.price)}",
+                                        text = "${String.format("%.2f", entry.price)} kr.",
                                         style = MaterialTheme.typography.headlineSmall,
                                         color = Color.Green
                                     )
@@ -102,6 +104,15 @@ class MainActivity : ComponentActivity() {
                                         color = Color.Green
                                     )
                                 }
+                                IconButton(onClick = {
+                                    deletePrice(entry.id)
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = "Delete Notification",
+                                        tint = Color.Red
+                                    )
+                                }
                             }
                         }
                     }
@@ -114,6 +125,10 @@ class MainActivity : ComponentActivity() {
         prices = db.getAllPrices()
     }
 
+    private fun deletePrice(entryId: Long) {
+        db.deletePrice(entryId)
+        refreshPrices()
+    }
     private fun findPrice(text: String): Double? {
         // Regex to match prices with either , or . as decimal separator, followed by kr or DKK
         val regex = """(\d+[\.,]\d{2})\s*(kr\.?|DKK)""".toRegex()

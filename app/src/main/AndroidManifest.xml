@@ -48,6 +48,8 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
+                <action android:name="com.example.notificationPriceReader.UPDATE_NOTIFICATION" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
             <meta-data
                 android:name="android.service.notification.default_filter_types"

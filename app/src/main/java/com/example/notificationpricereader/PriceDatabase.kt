@@ -72,6 +72,9 @@ class PriceDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME,
         }
         return prices
     }
+    fun deletePrice(entryId: Long) {
+        writableDatabase.delete("prices", "id = ?", arrayOf(entryId.toString()))
+    }
 
     companion object {
         private const val DATABASE_NAME = "prices.db"
