@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import java.text.SimpleDateFormat
@@ -79,9 +80,17 @@ class MainActivity : ComponentActivity() {
                         items(prices) { entry ->
                             Card(
                                 modifier = Modifier.fillMaxWidth()
+                            ) {Box(
+
+
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
                             ) {
                                 Column(
-                                    modifier = Modifier.padding(16.dp)
+                                    modifier = Modifier
+                                        .align(Alignment.CenterStart)
+                                        .padding(end = 40.dp) //
                                 ) {
                                     Text(
                                         text = "${String.format("%.2f", entry.price)} kr.",
@@ -105,8 +114,9 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                                 IconButton(onClick = {
-                                    deletePrice(entry.id)
-                                }) {
+                                    deletePrice(entry.id)},
+                                    modifier = Modifier.align(Alignment.TopEnd)
+                                ) {
                                     Icon(
                                         imageVector = Icons.Default.Close,
                                         contentDescription = "Delete Notification",
@@ -118,7 +128,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-        }
+        } }
     }
 
     private fun refreshPrices() {
